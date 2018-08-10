@@ -8,12 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		A7278D3C210A275D009B2FC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278D3B210A275D009B2FC3 /* AppDelegate.swift */; };
-		A7278D3E210A275D009B2FC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278D3D210A275D009B2FC3 /* ViewController.swift */; };
 		A7278D41210A275D009B2FC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7278D3F210A275D009B2FC3 /* Main.storyboard */; };
 		A7278D44210A275D009B2FC3 /* Just_Start.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7278D42210A275D009B2FC3 /* Just_Start.xcdatamodeld */; };
 		A7278D46210A275F009B2FC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7278D45210A275F009B2FC3 /* Assets.xcassets */; };
 		A7278D49210A275F009B2FC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7278D47210A275F009B2FC3 /* LaunchScreen.storyboard */; };
 		A7278D54210A2760009B2FC3 /* Just_StartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278D53210A2760009B2FC3 /* Just_StartTests.swift */; };
+		A7278D5F210A28F6009B2FC3 /* ProjectListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278D5E210A28F6009B2FC3 /* ProjectListController.swift */; };
+		A7278D61210A2B8A009B2FC3 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7278D60210A2B8A009B2FC3 /* ProjectCell.swift */; };
+		A7451382210F623600512AC4 /* AddProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7451381210F623600512AC4 /* AddProjectController.swift */; };
+		A75194CD211A7962003F5E14 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194CC211A7962003F5E14 /* CoreDataStack.swift */; };
+		A75194CF211A7AA9003F5E14 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194CE211A7AA9003F5E14 /* Utils.swift */; };
+		A75194D2211A7CE0003F5E14 /* TaskListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194D1211A7CE0003F5E14 /* TaskListController.swift */; };
+		A75194DB211A8A1A003F5E14 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194D7211A8A1A003F5E14 /* Project+CoreDataClass.swift */; };
+		A75194DC211A8A1A003F5E14 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194D8211A8A1A003F5E14 /* Project+CoreDataProperties.swift */; };
+		A75194DD211A8A1A003F5E14 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194D9211A8A1A003F5E14 /* Task+CoreDataClass.swift */; };
+		A75194DE211A8A1A003F5E14 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75194DA211A8A1A003F5E14 /* Task+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +38,6 @@
 /* Begin PBXFileReference section */
 		A7278D38210A275D009B2FC3 /* Just Start.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Just Start.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7278D3B210A275D009B2FC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A7278D3D210A275D009B2FC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7278D40210A275D009B2FC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7278D43210A275D009B2FC3 /* Just_Start.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Just_Start.xcdatamodel; sourceTree = "<group>"; };
 		A7278D45210A275F009B2FC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +46,16 @@
 		A7278D4F210A2760009B2FC3 /* Just StartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Just StartTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7278D53210A2760009B2FC3 /* Just_StartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Just_StartTests.swift; sourceTree = "<group>"; };
 		A7278D55210A2760009B2FC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7278D5E210A28F6009B2FC3 /* ProjectListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListController.swift; sourceTree = "<group>"; };
+		A7278D60210A2B8A009B2FC3 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		A7451381210F623600512AC4 /* AddProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectController.swift; sourceTree = "<group>"; };
+		A75194CC211A7962003F5E14 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		A75194CE211A7AA9003F5E14 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		A75194D1211A7CE0003F5E14 /* TaskListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListController.swift; sourceTree = "<group>"; };
+		A75194D7211A8A1A003F5E14 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A75194D8211A8A1A003F5E14 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A75194D9211A8A1A003F5E14 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A75194DA211A8A1A003F5E14 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +98,14 @@
 			isa = PBXGroup;
 			children = (
 				A7278D3B210A275D009B2FC3 /* AppDelegate.swift */,
-				A7278D3D210A275D009B2FC3 /* ViewController.swift */,
+				A75194D0211A7CC0003F5E14 /* ProjectControllers */,
+				A7278D60210A2B8A009B2FC3 /* ProjectCell.swift */,
+				A75194CC211A7962003F5E14 /* CoreDataStack.swift */,
+				A75194CE211A7AA9003F5E14 /* Utils.swift */,
+				A75194D7211A8A1A003F5E14 /* Project+CoreDataClass.swift */,
+				A75194D8211A8A1A003F5E14 /* Project+CoreDataProperties.swift */,
+				A75194D9211A8A1A003F5E14 /* Task+CoreDataClass.swift */,
+				A75194DA211A8A1A003F5E14 /* Task+CoreDataProperties.swift */,
 				A7278D3F210A275D009B2FC3 /* Main.storyboard */,
 				A7278D45210A275F009B2FC3 /* Assets.xcassets */,
 				A7278D47210A275F009B2FC3 /* LaunchScreen.storyboard */,
@@ -97,6 +122,16 @@
 				A7278D55210A2760009B2FC3 /* Info.plist */,
 			);
 			path = "Just StartTests";
+			sourceTree = "<group>";
+		};
+		A75194D0211A7CC0003F5E14 /* ProjectControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A7278D5E210A28F6009B2FC3 /* ProjectListController.swift */,
+				A75194D1211A7CE0003F5E14 /* TaskListController.swift */,
+				A7451381210F623600512AC4 /* AddProjectController.swift */,
+			);
+			path = ProjectControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +235,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7278D3E210A275D009B2FC3 /* ViewController.swift in Sources */,
 				A7278D3C210A275D009B2FC3 /* AppDelegate.swift in Sources */,
+				A7451382210F623600512AC4 /* AddProjectController.swift in Sources */,
+				A75194DC211A8A1A003F5E14 /* Project+CoreDataProperties.swift in Sources */,
+				A75194CF211A7AA9003F5E14 /* Utils.swift in Sources */,
+				A75194DB211A8A1A003F5E14 /* Project+CoreDataClass.swift in Sources */,
+				A7278D5F210A28F6009B2FC3 /* ProjectListController.swift in Sources */,
 				A7278D44210A275D009B2FC3 /* Just_Start.xcdatamodeld in Sources */,
+				A7278D61210A2B8A009B2FC3 /* ProjectCell.swift in Sources */,
+				A75194DD211A8A1A003F5E14 /* Task+CoreDataClass.swift in Sources */,
+				A75194D2211A7CE0003F5E14 /* TaskListController.swift in Sources */,
+				A75194DE211A8A1A003F5E14 /* Task+CoreDataProperties.swift in Sources */,
+				A75194CD211A7962003F5E14 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
