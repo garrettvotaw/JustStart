@@ -7,11 +7,12 @@
     </entity>
     <entity name="Task" representedClassName=".Task" syncable="YES">
         <attribute name="isDone" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project" syncable="YES"/>
     </entity>
     <elements>
         <element name="Project" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="Task" positionX="-63" positionY="0" width="128" height="90"/>
+        <element name="Task" positionX="-63" positionY="0" width="128" height="105"/>
     </elements>
 </model>

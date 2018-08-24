@@ -13,4 +13,10 @@ import CoreData
 
 public class Project: NSManagedObject {
 
+    var sortedTasks: [Task] {
+        guard var tasks = tasks?.allObjects as? [Task] else {return []}
+        tasks.sort { $0.title.lowercased() < $1.title.lowercased() }
+        return tasks
+    }
+    
 }

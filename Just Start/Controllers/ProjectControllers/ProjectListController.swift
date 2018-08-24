@@ -27,6 +27,10 @@ class ProjectListController: UITableViewController {
             print("There was an error fetching the Entries!")
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,7 +57,23 @@ class ProjectListController: UITableViewController {
         let project = fetchedResultsController.object(at: indexPath)
         cell.projectLabel.text = project.title
         cell.subtitleLabel.text = project.subtitle
-
+        if let tasks = project.tasks?.allObjects as? [Task] {
+            var incompleteTasks = 0
+            for task in tasks {
+                if !task.isDone {
+                    incompleteTasks += 1
+                }
+            }
+            if incompleteTasks == 0 {
+                cell.blueView.isHidden = true
+                cell.taskCountLabel.isHidden = true
+            } else {
+                cell.blueView.isHidden = false
+                cell.taskCountLabel.isHidden = false
+                cell.taskCountLabel.text = "\(incompleteTasks)"
+            }
+        }
+        
         return cell
     }
  
@@ -89,6 +109,10 @@ class ProjectListController: UITableViewController {
             let nextVC = segue.destination as! UINavigationController
             guard let addProjectController = nextVC.topViewController as? AddProjectController else {return}
             addProjectController.context = context
+        } else if segue.identifier == "showProject" {
+            let nextVC = segue.destination as! TaskListController
+            nextVC.context = context
+            nextVC.project = fetchedResultsController.object(at: tableView.indexPathForSelectedRow!)
         }
         
     }
@@ -97,6 +121,7 @@ class ProjectListController: UITableViewController {
 }
 
 extension ProjectListController: NSFetchedResultsControllerDelegate {
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
@@ -118,4 +143,5 @@ extension ProjectListController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
+    
 }

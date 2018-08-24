@@ -32,6 +32,8 @@ extension Project {
     @NSManaged public var title: String
     @NSManaged public var tasks: NSSet?
 
+    
+    
 }
 
 // MARK: Generated accessors for tasks

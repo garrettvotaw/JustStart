@@ -10,6 +10,8 @@ import UIKit
 
 class ProjectCell: UITableViewCell {
 
+    @IBOutlet weak var blueView: UIView!
+    @IBOutlet weak var taskCountLabel: UILabel!
     @IBOutlet weak var projectLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     
