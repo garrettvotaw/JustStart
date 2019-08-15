@@ -73,15 +73,15 @@ class AddTaskController: UITableViewController {
             task.note = notesTextView.text
         } else {
             if notesIsEdited {
-                let newTask = Task.with(title: title, note: notesTextView.text, isDone: false, project: project, in: context)
+                let newTask = Task.with(title: title, note: notesTextView.text, isDone: false, project: project, priority: project.numberOfTasks() + 1, in: context)
                 project.addToTasks(newTask)
                 
             } else {
-                let newTask = Task.with(title: title, note: "", isDone: false, project: project, in: context)
+                let newTask = Task.with(title: title, note: "", isDone: false, project: project, priority: project.numberOfTasks() + 1, in: context)
                 project.addToTasks(newTask)
             }
-            
         }
+        
         do {
             try context.saveChanges()
             dismiss(animated: true, completion: nil)

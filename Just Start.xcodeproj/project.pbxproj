@@ -223,9 +223,11 @@
 				TargetAttributes = {
 					A7278D37210A275D009B2FC3 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 					A7278D4E210A2760009B2FC3 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = A7278D37210A275D009B2FC3;
 					};
 				};
@@ -459,7 +461,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.votaw.Just-Start";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -477,7 +479,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.votaw.Just-Start";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -497,7 +499,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.votaw.Just-StartTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Just Start.app/Just Start";
 			};
@@ -518,7 +520,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.votaw.Just-StartTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Just Start.app/Just Start";
 			};

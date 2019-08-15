@@ -22,7 +22,7 @@ class TaskListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        tableView.setEditing(true, animated: true)
         tableView.estimatedRowHeight = 1
     }
     
@@ -34,6 +34,9 @@ class TaskListController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Helper Functions
+    
 
     // MARK: - Table view data source
 
@@ -55,13 +58,17 @@ class TaskListController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectDetailsCell", for: indexPath) as! ProjectDetailsCell
             cell.titleLabel.text = project.title
             cell.subtitleLabel.text = project.subtitle
+            let percentComplete = project.calculatePercentComplete()
+            cell.percentCompleteLabel.text = "\(Int((percentComplete * 100).rounded()))% Complete"
+            
+            
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
             cell.delegate = self
             cell.index = indexPath
-            cell.taskLabel.text = project.sortedTasks[indexPath.row].title
-            cell.notesLabel.text = project.sortedTasks[indexPath.row].note
-            if project.sortedTasks[indexPath.row].isDone {
+            cell.taskLabel.text = project.prioritySortedTasks[indexPath.row].title
+            cell.notesLabel.text = project.prioritySortedTasks[indexPath.row].note
+            if project.prioritySortedTasks[indexPath.row].isDone {
                 cell.checkButton.setImage(#imageLiteral(resourceName: "checkMark"), for: .normal)
             } else {
                 cell.checkButton.setImage(#imageLiteral(resourceName: "uncheck"), for: .normal)
@@ -82,7 +89,7 @@ class TaskListController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.section == 1 {
             return .delete
         } else {
@@ -91,7 +98,30 @@ class TaskListController: UITableViewController {
         
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 1 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 1 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var task = project.unsortedTaskList[sourceIndexPath.row]
+        context.delete(task)
+        
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let tasks = project.tasks?.allObjects as? [Task] else {return}
         project.removeFromTasks(tasks[indexPath.row])
         context.delete(tasks[indexPath.row])
@@ -110,7 +140,7 @@ class TaskListController: UITableViewController {
         if indexPath.section == 0 {
             return 190
         } else {
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         }
     }
     
@@ -133,7 +163,7 @@ class TaskListController: UITableViewController {
             let nextVC = segue.destination as! UINavigationController
             let controller = nextVC.topViewController! as! AddTaskController
             controller.isAnEdit = true
-            controller.task = project.sortedTasks[tableView.indexPathForSelectedRow!.row]
+            controller.task = project.prioritySortedTasks[tableView.indexPathForSelectedRow!.row]
             controller.project = project
             controller.context = context
         }
@@ -143,7 +173,8 @@ class TaskListController: UITableViewController {
 
 extension TaskListController: TaskCellDelegate {
     func getCompletedState(state: Bool, indexPath: IndexPath) {
-        project.sortedTasks[indexPath.row].isDone = state
+        project.prioritySortedTasks[indexPath.row].isDone = state
+        
         do {
             try context.saveChanges()
         } catch {

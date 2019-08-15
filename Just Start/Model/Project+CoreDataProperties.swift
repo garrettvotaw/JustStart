@@ -15,7 +15,7 @@ extension Project {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Project> {
         let request = NSFetchRequest<Project>(entityName: "Project")
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         return request
     }
@@ -32,7 +32,27 @@ extension Project {
     @NSManaged public var title: String
     @NSManaged public var tasks: NSSet?
 
+    func calculatePercentComplete() -> Double {
+        guard let tasks = tasks?.allObjects as? [Task] else {return 0.0}
+        var completeTasks = 0.0
+        let totalTasks = tasks.count
+        for task in tasks {
+            if task.isDone {
+                completeTasks += 1.0
+            }
+        }
+        if totalTasks > 0 {
+            return completeTasks/Double(totalTasks)
+        } else {
+            return 0
+        }
+        
+    }
     
+    func numberOfTasks() -> Int {
+        guard let tasks = tasks?.allObjects as? [Task] else {return 0}
+        return tasks.count
+    }
     
 }
 

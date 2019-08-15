@@ -46,14 +46,13 @@ class TaskCell: UITableViewCell {
 extension UIView {
     func shrinkGrowBounce() {
         let springAnimation = CASpringAnimation(keyPath: "transform.scale")
-        
         springAnimation.duration = 1
         springAnimation.fromValue = 0.0
         springAnimation.toValue = 1.0
-        springAnimation.mass = 0.55                  //default 1
-        springAnimation.initialVelocity = 20       //default 0
-        springAnimation.stiffness = 70            //default 100
-        springAnimation.damping = 8               //default 10
+        springAnimation.mass = 0.54                //default 1
+        springAnimation.initialVelocity = 18       //default 0
+        springAnimation.stiffness = 70             //default 100
+        springAnimation.damping = 8                //default 10
         layer.add(springAnimation, forKey: "springAnimation")
     }
 }

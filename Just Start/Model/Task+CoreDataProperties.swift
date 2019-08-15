@@ -20,12 +20,13 @@ extension Task {
         return request
     }
     
-    @nonobjc class func with(title: String, note: String, isDone: Bool, project: Project, in context: NSManagedObjectContext) -> Task {
+    @nonobjc class func with(title: String, note: String, isDone: Bool, project: Project, priority: Int, in context: NSManagedObjectContext) -> Task {
         let task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context) as! Task
         task.title = title
         task.isDone = isDone
         task.project = project
         task.note = note
+        task.priority = priority
         return task
     }
 
@@ -33,5 +34,6 @@ extension Task {
     @NSManaged public var title: String
     @NSManaged public var note: String?
     @NSManaged public var project: Project
+    @NSManaged public var priority: Int
 
 }
