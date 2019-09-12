@@ -15,7 +15,7 @@ public class Project: NSManagedObject {
 
     var prioritySortedTasks: [Task] {
         guard var tasks = tasks?.allObjects as? [Task] else {return []}
-        tasks.sort { $0.priority < $1.priority }
+        tasks.sort { $0.index < $1.index }
         return tasks
     }
     

@@ -65,7 +65,7 @@ class AddTaskController: UITableViewController {
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         guard let title = titleTextField.text, !title.isEmpty else {
-            presentAlert(title: "Whoopsies!", message: "This task needs a title at the very least. Make sure you fill that out and then try again!")
+            presentAlert(title: "Whoops!", message: "This task needs a title at the very least. Make sure you fill that out and then try again!")
             return
         }
         if let task = self.task {
@@ -73,11 +73,11 @@ class AddTaskController: UITableViewController {
             task.note = notesTextView.text
         } else {
             if notesIsEdited {
-                let newTask = Task.with(title: title, note: notesTextView.text, isDone: false, project: project, priority: project.numberOfTasks() + 1, in: context)
+                let newTask = Task.with(title: title, note: notesTextView.text, isDone: false, project: project, index: project.numberOfTasks(), in: context)
                 project.addToTasks(newTask)
                 
             } else {
-                let newTask = Task.with(title: title, note: "", isDone: false, project: project, priority: project.numberOfTasks() + 1, in: context)
+                let newTask = Task.with(title: title, note: "", isDone: false, project: project, index: project.numberOfTasks(), in: context)
                 project.addToTasks(newTask)
             }
         }
@@ -86,7 +86,7 @@ class AddTaskController: UITableViewController {
             try context.saveChanges()
             dismiss(animated: true, completion: nil)
         } catch {
-            presentAlert(title: "Whoopsies!", message: "It looks like we were unable to save the changes this time around!")
+            presentAlert(title: "Whoops!", message: "It looks like we were unable to save the changes this time around!")
         }
         
     }
@@ -101,13 +101,4 @@ extension AddTaskController: UITextViewDelegate {
         notesIsEdited = true
     }
     
-
-
 }
-
-
-
-
-
-
-

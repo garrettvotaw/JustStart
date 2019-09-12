@@ -137,6 +137,8 @@ extension ProjectListController: NSFetchedResultsControllerDelegate {
         case .move, .update:
             guard let indexPath = indexPath else {return}
             tableView.reloadRows(at: [indexPath], with: .automatic)
+        @unknown default:
+            fatalError()
         }
     }
     

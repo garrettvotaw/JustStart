@@ -115,9 +115,17 @@ class TaskListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var task = project.unsortedTaskList[sourceIndexPath.row]
-        context.delete(task)
         
+        var prioritySortedTasks = project.prioritySortedTasks
+        let movedTask = prioritySortedTasks.remove(at: sourceIndexPath.row)
+        prioritySortedTasks.insert(movedTask, at: destinationIndexPath.row)
+        
+        
+        var tempIndex = 0
+        for task in prioritySortedTasks {
+            task.index = tempIndex
+            tempIndex += 1
+        }
         
     }
     
@@ -168,7 +176,6 @@ class TaskListController: UITableViewController {
             controller.context = context
         }
     }
-
 }
 
 extension TaskListController: TaskCellDelegate {
