@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftReorder
 
 protocol TaskCellDelegate: class {
     func getCompletedState(state: Bool, indexPath: IndexPath)
@@ -21,8 +22,7 @@ class TaskListController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.setEditing(true, animated: true)
+        tableView.reorder.delegate = self
         tableView.estimatedRowHeight = 1
     }
     
@@ -40,6 +40,7 @@ class TaskListController: UITableViewController {
 
     // MARK: - Table view data source
 
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -54,6 +55,9 @@ class TaskListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+            return spacer
+        }
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectDetailsCell", for: indexPath) as! ProjectDetailsCell
             cell.titleLabel.text = project.title
@@ -98,14 +102,6 @@ class TaskListController: UITableViewController {
         
     }
     
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 1 {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == 1 {
             return true
@@ -114,20 +110,6 @@ class TaskListController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        var prioritySortedTasks = project.prioritySortedTasks
-        let movedTask = prioritySortedTasks.remove(at: sourceIndexPath.row)
-        prioritySortedTasks.insert(movedTask, at: destinationIndexPath.row)
-        
-        
-        var tempIndex = 0
-        for task in prioritySortedTasks {
-            task.index = tempIndex
-            tempIndex += 1
-        }
-        
-    }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let tasks = project.tasks?.allObjects as? [Task] else {return}
@@ -176,6 +158,7 @@ class TaskListController: UITableViewController {
             controller.context = context
         }
     }
+
 }
 
 extension TaskListController: TaskCellDelegate {
@@ -186,6 +169,42 @@ extension TaskListController: TaskCellDelegate {
             try context.saveChanges()
         } catch {
             print(error)
+        }
+    }
+}
+
+extension TaskListController: TableViewReorderDelegate {
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForReorderFromRowAt sourceIndexPath: IndexPath, to proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if sourceIndexPath.section != proposedDestinationIndexPath.section {
+            var row = 0
+            if sourceIndexPath.section < proposedDestinationIndexPath.section {
+                row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
+            }
+            return IndexPath(row: row, section: sourceIndexPath.section)
+        }
+        return proposedDestinationIndexPath
+    }
+    
+    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("\n\n")
+        print(sourceIndexPath)
+        print(destinationIndexPath)
+        print("\n\n")
+        
+        if destinationIndexPath.section == 0 || destinationIndexPath.section == 2 {
+            return
+        }
+        
+        var prioritySortedTasks = project.prioritySortedTasks
+        let movedTask = prioritySortedTasks.remove(at: sourceIndexPath.row)
+        prioritySortedTasks.insert(movedTask, at: destinationIndexPath.row)
+        
+        
+        var tempIndex = 0
+        for task in prioritySortedTasks {
+            task.index = tempIndex
+            tempIndex += 1
         }
     }
 }
