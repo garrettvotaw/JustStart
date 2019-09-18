@@ -15,6 +15,7 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var checkButton: UIButton!
     
     weak var delegate: TaskCellDelegate?
+    weak var rowReloadDelegate: RowReloadListener?
     var index: IndexPath!
     
     override func awakeFromNib() {
@@ -32,10 +33,12 @@ class TaskCell: UITableViewCell {
         if checkButton.image(for: .normal) == #imageLiteral(resourceName: "checkMark") {
             checkButton.setImage(#imageLiteral(resourceName: "uncheck"), for: .normal)
             delegate?.getCompletedState(state: false, indexPath: index)
+            rowReloadDelegate?.reloadRows()
         } else {
             checkButton.shrinkGrowBounce()
             checkButton.setImage(#imageLiteral(resourceName: "checkMark"), for: .normal)
             delegate?.getCompletedState(state: true, indexPath: index)
+            rowReloadDelegate?.reloadRows()
         }
     }
     

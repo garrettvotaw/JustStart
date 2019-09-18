@@ -14,6 +14,10 @@ protocol TaskCellDelegate: class {
     func getCompletedState(state: Bool, indexPath: IndexPath)
 }
 
+protocol RowReloadListener: class {
+    func reloadRows()
+}
+
 class TaskListController: UITableViewController {
     
     var context: NSManagedObjectContext!
@@ -64,11 +68,13 @@ class TaskListController: UITableViewController {
             cell.subtitleLabel.text = project.subtitle
             let percentComplete = project.calculatePercentComplete()
             cell.percentCompleteLabel.text = "\(Int((percentComplete * 100).rounded()))% Complete"
-            
+            cell.progressView.progress = Float(percentComplete)
+            return cell
             
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
             cell.delegate = self
+            cell.rowReloadDelegate = self
             cell.index = indexPath
             cell.taskLabel.text = project.prioritySortedTasks[indexPath.row].title
             cell.notesLabel.text = project.prioritySortedTasks[indexPath.row].note
@@ -112,7 +118,7 @@ class TaskListController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let tasks = project.tasks?.allObjects as? [Task] else {return}
+        let tasks = project.prioritySortedTasks
         project.removeFromTasks(tasks[indexPath.row])
         context.delete(tasks[indexPath.row])
         do {
@@ -124,6 +130,7 @@ class TaskListController: UITableViewController {
         tableView.beginUpdates()
         tableView.deleteRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
+        reloadRows()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -173,6 +180,19 @@ extension TaskListController: TaskCellDelegate {
     }
 }
 
+extension TaskListController: RowReloadListener {
+    func reloadRows() {
+        let detailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProjectDetailsCell
+        let percentComplete = project.calculatePercentComplete()
+        detailsCell.percentCompleteLabel.text = "\(Int((percentComplete * 100).rounded()))% Complete"
+        UIView.animate(withDuration: 0.7) {
+            detailsCell.progressView.setProgress(Float(percentComplete), animated: true)
+        }
+        
+        
+    }
+}
+
 extension TaskListController: TableViewReorderDelegate {
     
     func tableView(_ tableView: UITableView, targetIndexPathForReorderFromRowAt sourceIndexPath: IndexPath, to proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -187,14 +207,6 @@ extension TaskListController: TableViewReorderDelegate {
     }
     
     func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("\n\n")
-        print(sourceIndexPath)
-        print(destinationIndexPath)
-        print("\n\n")
-        
-        if destinationIndexPath.section == 0 || destinationIndexPath.section == 2 {
-            return
-        }
         
         var prioritySortedTasks = project.prioritySortedTasks
         let movedTask = prioritySortedTasks.remove(at: sourceIndexPath.row)
@@ -206,6 +218,7 @@ extension TaskListController: TableViewReorderDelegate {
             task.index = tempIndex
             tempIndex += 1
         }
+        
     }
 }
 

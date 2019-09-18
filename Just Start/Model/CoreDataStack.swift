@@ -20,7 +20,6 @@ class CoreDataStack {
         let container = NSPersistentContainer(name: "Just_Start")
         container.loadPersistentStores() { storeDescription, error in
             if let error = error {
-                print("taco")
                 fatalError("Unresolved error: \(error)")
             }
         }
